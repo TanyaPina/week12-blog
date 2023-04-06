@@ -11,6 +11,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@mui/material": "^5.11.16",
     "concurrently": "^7.6.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
