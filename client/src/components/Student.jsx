@@ -42,6 +42,21 @@ const Student = ({ student, toUpdate, toDelete, toSee }) => {
                 <Button variant="outline-danger" onClick={() => { onDelete(student) }} style={{ padding: '0.6em', marginRight: '0.9em' }}><ioicons.IoTrash /></Button>
                 <Button variant="outline-info" onClick={() => { onUpdate(student) }} style={{ padding: '0.6em', marginRight: '0.9em' }}> <ioicons.IoSync /></Button>
                 <Button variant="outline-info" onClick={ handleOpen } style={{ padding: '0.6em' }}> <ioicons.IoEye /></Button>
+                <Modal
+  open={open}
+  onClose={handleClose}
+  aria-labelledby="modal-modal-title"
+  aria-describedby="modal-modal-description"
+>
+  <Box sx={style}>
+    <Typography id="modal-modal-title" variant="h6" component="h2">
+      Text in a modal
+    </Typography>
+    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+      Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+    </Typography>
+  </Box>
+</Modal>
             </Card.Body>
         </Card>
     )
