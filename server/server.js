@@ -16,27 +16,28 @@ app.get('/', (req, res) => {
 });
 
 // create the get request for students in the endpoint '/api/students'
-app.get('/api/students', async (req, res) => {
+app.get('/api/posts', async (req, res) => {
     try {
-        const { rows: students } = await db.query('SELECT * FROM students1');
-        res.send(students);
+        const { rows: posts } = await db.query('SELECT * FROM posts');
+        res.send(posts);
     } catch (e) {
         return res.status(400).json({ e });
     }
 });
 
 // create the POST request
-app.post('/api/students', async (req, res) => {
+app.post('/api/posts', async (req, res) => {
     try {
-        const newStudent = {
-            firstname: req.body.firstname,
-            lastname: req.body.lastname,
-            is_current: req.body.is_current
+        const newPosts = {
+            title: req.body.title,
+            body: req.body.body,
+            img: req.body.img,
+            is_starred: req.body.is_starred
         };
         //console.log([newStudent.firstname, newStudent.lastname, newStudent.iscurrent]);
         const result = await db.query(
-            'INSERT INTO students1(firstname, lastname, is_current) VALUES($1, $2, $3) RETURNING *',
-            [newStudent.firstname, newStudent.lastname, newStudent.is_current],
+            'INSERT INTO posts(title, body, img, is_current) VALUES($1, $2, $3, $4) RETURNING *',
+            [newPosts.title, newPosts.body, newPosts.img, newPosts.is_current],
         );
         console.log(result.rows[0]);
         res.json(result.rows[0]);
