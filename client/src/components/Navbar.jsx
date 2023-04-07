@@ -23,9 +23,9 @@ function MyNavBar(props) {
           Home
         </Nav.Link>
 
-        <Nav.Link to="aboutme"className="nav-link">
+        <Link to="/aboutme" className="nav-link">
         About Me
-      </Nav.Link>
+      </Link>
       <Nav.Link to="api/students"className="nav-link">
       Blogs
       </Nav.Link>

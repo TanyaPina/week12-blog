@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./pages/Root";
 import Home from './pages/Home';
 import ListStudents from './pages/ListStudents';
+import AboutMe from './pages/AboutMe';
  
 const router = createBrowserRouter([
   {
@@ -12,21 +13,11 @@ const router = createBrowserRouter([
     element: <Root />,
     children: [
       { index: true, element: <ListStudents /> },
-      /*
       {
         path: "aboutme",
-        element: <About Me />,
-      },
-      */
-      {
-        path: "api/students",
-        element: <ListStudents />,
+        element: <AboutMe />,
       },
     ],
-  },
-  {
-    path: "api/students",
-    element: <ListStudents />,    
   },
 ]);
 /*
