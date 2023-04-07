@@ -50,11 +50,11 @@ app.post('/api/posts', async (req, res) => {
 });
 
 // delete request for students
-app.delete('/api/students/:studentId', async (req, res) => {
+app.delete('/api/students/:postID', async (req, res) => {
     try {
         const studentId = req.params.studentId;
-        await db.query('DELETE FROM students1 WHERE id=$1', [studentId]);
-        console.log("From the delete request-url", studentId);
+        await db.query('DELETE FROM posts WHERE id=$1', [postId]);
+        console.log("From the delete request-url", postId);
         res.status(200).end();
     } catch (e) {
         console.log(e);
@@ -64,16 +64,16 @@ app.delete('/api/students/:studentId', async (req, res) => {
 });
 
 //A put request - Update a student 
-app.put('/api/students/:studentId', async (req, res) =>{
+app.put('/api/posts/:postId', async (req, res) =>{
     //console.log(req.params);
     //This will be the id that I want to find in the DB - the student to be updated
-    const studentId = req.params.studentId
-    const updatedStudent = { id: req.body.id, firstname: req.body.firstname, lastname: req.body.lastname, is_current: req.body.is_current}
-    console.log("In the server from the url - the student id", studentId);
-    console.log("In the server, from the react - the student to be edited", updatedStudent);
+    const postId = req.params.postId
+    const updatedPost = { id: req.body.id, title: req.body.title, body: req.body.body, img: req.body.img, is_starred: req.body.is_starred}
+    console.log("In the server from the url - the post id", postId);
+    console.log("In the server, from the react - the post to be edited", updatedPost);
     // UPDATE students SET lastname = "something" WHERE id="16";
-    const query = `UPDATE students1 SET firstname=$1, lastname=$2, is_current=$3 WHERE id=${studentId} RETURNING *`;
-    const values = [updatedStudent.firstname, updatedStudent.lastname, updatedStudent.is_current];
+    const query = `UPDATE posts SET title=$1, body=$2, img=$3 is_starred=$4 WHERE id=${postId} RETURNING *`;
+    const values = [updatedPost.title, updatedPost.body, updatedPost.img, updatedPost.is_starred];
     try {
       const updated = await db.query(query, values);
       console.log(updated.rows[0]);

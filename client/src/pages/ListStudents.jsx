@@ -6,54 +6,54 @@ import Student from '../components/Student';
 const ListStudents = () => {
 
     // this is my original state with an array of students 
-    const [students, setStudents] = useState([]);
+    const [posts, setPosts] = useState([]);
 
     //this is the state needed for the UpdateRequest
-    const [editingStudent, setEditingStudent] = useState(null)
+    const [editingPost, setEditingPost] = useState(null)
 
-    const loadStudents = () => {
+    const loadPosts = () => {
         // A function to fetch the list of students that will be load anytime that list change
-        fetch("http://localhost:8080/api/students")
+        fetch("http://localhost:8080/api/posts")
             .then((response) => response.json())
-            .then((students) => {
-                setStudents(students);
+            .then((posts) => {
+                setPosts(posts);
             });
     }
 
     useEffect(() => {
-        loadStudents();
-    }, [students]);
+        loadPosts();
+    }, [posts]);
 
-    const onSaveStudent = (newStudent) => {
+    const onSavePost = (newPost) => {
         //console.log(newStudent, "From the parent - List of Students");
-        setStudents((students) => [...students, newStudent]);
+        setPosts((posts) => [...posts, newPost]);
     }
 
 
     //A function to control the update in the parent (student component)
-    const updateStudent = (savedStudent) => {
+    const updatePost = (savedPost) => {
         // console.log("Line 29 savedStudent", savedStudent);
         // This function should update the whole list of students - 
-        loadStudents();
+        loadPosts();
     }
 
     //A function to handle the Delete funtionality
-    const onDelete = (student) => {
+    const onDelete = (post) => {
         //console.log(student, "delete method")
-        return fetch(`http://localhost:8080/api/students/${student.id}`, {
+        return fetch(`http://localhost:8080/api/posts/${post.id}`, {
             method: "DELETE"
         }).then((response) => {
             //console.log(response);
             if (response.ok) {
-                loadStudents();
+                loadPosts();
             }
         })
     }
 
     //A function to handle the Update functionality
-    const onUpdate = (toUpdateStudent) => {
+    const onUpdate = (toUpdatePost) => {
         //console.log(toUpdateStudent);
-        setEditingStudent(toUpdateStudent);
+        setEditingPost(toUpdatePost);
 
     }
 
@@ -64,12 +64,12 @@ const ListStudents = () => {
         <div className="list-students">
             <h4 style={{ padding: '0.5em'}}>Be proud of your place in the cosmos. It is small and yet it is. </h4>
             <ul>
-                {students.map((student) => {
-                    return <li key={student.id}> <Student student={student} toDelete={onDelete} toUpdate={onUpdate} /></li>
+                {posts.map((post) => {
+                    return <li key={post.id}> <Student post={post} toDelete={onDelete} toUpdate={onUpdate} /></li>
                 })}
             </ul>
         </div>
-        <MyForm key={editingStudent ? editingStudent.id : null} onSaveStudent={onSaveStudent} editingStudent={editingStudent} onUpdateStudent={updateStudent} />
+        <MyForm key={editingPost ? editingPost.id : null} onSavePost={onSavePost} editingPost={editingPost} onUpdatePost={updatePost} />
         </div>
     );
 }
