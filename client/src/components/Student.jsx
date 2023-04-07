@@ -1,5 +1,6 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
+import CardMedia from '@mui/material/CardMedia';
 import Button from 'react-bootstrap/Button';
 import * as ioicons from 'react-icons/io5'
 import Box from "@mui/material/Box";
@@ -36,9 +37,15 @@ const Student = ({ post, toUpdate, toDelete, }) => {
     return (
         <Card>
             <Card.Body>
-                <Card.Title>{post.title} {post.body} {post.img} </Card.Title>
-                {/*<img src={student.url} alt={student.firstname}/>*/}
-                {/*<img src="https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="BigCo Inc. logo"/>*/}
+                <Card.Title>{post.title} {post.body}</Card.Title>
+                <CardMedia
+                    component="img"
+                    height="194"
+                    image={post.img}
+                    style={{marginBottom: '.5em'}}
+                    />
+                    {/*<img src={student.url} alt={student.firstname}/>*/}
+                    {/*<img src="https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="BigCo Inc. logo"/>*/}
                 <Button variant="outline-danger" onClick={() => { onDelete(post) }} style={{ padding: '0.6em', marginRight: '0.9em' }}><ioicons.IoTrash /></Button>
                 <Button variant="outline-info" onClick={() => { onUpdate(post) }} style={{ padding: '0.6em', marginRight: '0.9em' }}> <ioicons.IoSync /></Button>
                 <Button variant="outline-info" onClick={handleOpen} style={{ padding: '0.6em' }}> <ioicons.IoEye /></Button>
@@ -50,7 +57,7 @@ const Student = ({ post, toUpdate, toDelete, }) => {
                 >
                     <Box sx={style}>
                         <Typography id="modal-modal-title" variant="h6" component="h2">
-                        {post.title}
+                            {post.title}
                         </Typography>
                         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                             Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
