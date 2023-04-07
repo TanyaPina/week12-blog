@@ -62,7 +62,7 @@ const ListStudents = () => {
     return (
         <div className="mybody">
         <div className="list-students">
-            <h4>Be proud of your place in the cosmos. It is small and yet it is. </h4>
+            <h4 style={{ padding: '0.5em' }}>Be proud of your place in the cosmos. It is small and yet it is. </h4>
             <ul>
                 {students.map((student) => {
                     return <li key={student.id}> <Student student={student} toDelete={onDelete} toUpdate={onUpdate} /></li>
