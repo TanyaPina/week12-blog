@@ -7,7 +7,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 
-const Student = ({ student, toUpdate, toDelete, toSee }) => {
+const Student = ({ student, toUpdate, toDelete, }) => {
 
     const onUpdate = (toUpdateStudent) => {
         toUpdate(toUpdateStudent)
@@ -41,22 +41,22 @@ const Student = ({ student, toUpdate, toDelete, toSee }) => {
                 {/*<img src="https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="BigCo Inc. logo"/>*/}
                 <Button variant="outline-danger" onClick={() => { onDelete(student) }} style={{ padding: '0.6em', marginRight: '0.9em' }}><ioicons.IoTrash /></Button>
                 <Button variant="outline-info" onClick={() => { onUpdate(student) }} style={{ padding: '0.6em', marginRight: '0.9em' }}> <ioicons.IoSync /></Button>
-                <Button variant="outline-info" onClick={ handleOpen } style={{ padding: '0.6em' }}> <ioicons.IoEye /></Button>
+                <Button variant="outline-info" onClick={handleOpen} style={{ padding: '0.6em' }}> <ioicons.IoEye /></Button>
                 <Modal
-  open={open}
-  onClose={handleClose}
-  aria-labelledby="modal-modal-title"
-  aria-describedby="modal-modal-description"
->
-  <Box sx={style}>
-    <Typography id="modal-modal-title" variant="h6" component="h2">
-    {student.firstname} {student.lastname}
-    </Typography>
-    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-      Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-    </Typography>
-  </Box>
-</Modal>
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <Box sx={style}>
+                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                            {student.firstname} {student.lastname}
+                        </Typography>
+                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                        </Typography>
+                    </Box>
+                </Modal>
             </Card.Body>
         </Card>
     )
