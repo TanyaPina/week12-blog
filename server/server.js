@@ -16,27 +16,28 @@ app.get('/', (req, res) => {
 });
 
 // create the get request for students in the endpoint '/api/students'
-app.get('/api/students', async (req, res) => {
+app.get('/api/posts', async (req, res) => {
     try {
-        const { rows: students } = await db.query('SELECT * FROM students1');
-        res.send(students);
+        const { rows: posts } = await db.query('SELECT * FROM posts');
+        res.send(posts);
     } catch (e) {
         return res.status(400).json({ e });
     }
 });
 
 // create the POST request
-app.post('/api/students', async (req, res) => {
+app.post('/api/posts', async (req, res) => {
     try {
-        const newStudent = {
-            firstname: req.body.firstname,
-            lastname: req.body.lastname,
-            is_current: req.body.is_current
+        const newPosts = {
+            title: req.body.title,
+            body: req.body.body,
+            img: req.body.img,
+            is_starred: req.body.is_starred
         };
         //console.log([newStudent.firstname, newStudent.lastname, newStudent.iscurrent]);
         const result = await db.query(
-            'INSERT INTO students1(firstname, lastname, is_current) VALUES($1, $2, $3) RETURNING *',
-            [newStudent.firstname, newStudent.lastname, newStudent.is_current],
+            'INSERT INTO posts(title, body, img, is_current) VALUES($1, $2, $3, $4) RETURNING *',
+            [newPosts.title, newPosts.body, newPosts.img, newPosts.is_current],
         );
         console.log(result.rows[0]);
         res.json(result.rows[0]);
@@ -49,11 +50,11 @@ app.post('/api/students', async (req, res) => {
 });
 
 // delete request for students
-app.delete('/api/students/:studentId', async (req, res) => {
+app.delete('/api/students/:postID', async (req, res) => {
     try {
         const studentId = req.params.studentId;
-        await db.query('DELETE FROM students1 WHERE id=$1', [studentId]);
-        console.log("From the delete request-url", studentId);
+        await db.query('DELETE FROM posts WHERE id=$1', [postId]);
+        console.log("From the delete request-url", postId);
         res.status(200).end();
     } catch (e) {
         console.log(e);
@@ -63,16 +64,16 @@ app.delete('/api/students/:studentId', async (req, res) => {
 });
 
 //A put request - Update a student 
-app.put('/api/students/:studentId', async (req, res) =>{
+app.put('/api/posts/:postId', async (req, res) =>{
     //console.log(req.params);
     //This will be the id that I want to find in the DB - the student to be updated
-    const studentId = req.params.studentId
-    const updatedStudent = { id: req.body.id, firstname: req.body.firstname, lastname: req.body.lastname, is_current: req.body.is_current}
-    console.log("In the server from the url - the student id", studentId);
-    console.log("In the server, from the react - the student to be edited", updatedStudent);
+    const postId = req.params.postId
+    const updatedPost = { id: req.body.id, title: req.body.title, body: req.body.body, img: req.body.img, is_starred: req.body.is_starred}
+    console.log("In the server from the url - the post id", postId);
+    console.log("In the server, from the react - the post to be edited", updatedPost);
     // UPDATE students SET lastname = "something" WHERE id="16";
-    const query = `UPDATE students1 SET firstname=$1, lastname=$2, is_current=$3 WHERE id=${studentId} RETURNING *`;
-    const values = [updatedStudent.firstname, updatedStudent.lastname, updatedStudent.is_current];
+    const query = `UPDATE posts SET title=$1, body=$2, img=$3 is_starred=$4 WHERE id=${postId} RETURNING *`;
+    const values = [updatedPost.title, updatedPost.body, updatedPost.img, updatedPost.is_starred];
     try {
       const updated = await db.query(query, values);
       console.log(updated.rows[0]);
